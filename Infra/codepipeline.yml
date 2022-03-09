@@ -233,11 +233,11 @@ Resources:
                 - docker push "${REPOSITORY_URI}:${TAG}"
                 - printf '{"Tag":"%s","RepositoryUri":"%s"}' $TAG $REPOSITORY_URI $PROJECT_NAME $ARTIFACT_BUCKET > build.json
                 - echo Writing image definitions file...
-                - printf '[{"name":"%s","imageUri":"%s"}]' $GitBranch $REPOSITORY_URI:$TAG > imagedefinitions.json
+                - printf '[{"name":"%s","imageUri":"%s"}]' $Container $REPOSITORY_URI:$TAG > imagedefinitions.json
           artifacts:
               files: imagedefinitions.json
       Environment:
-        ComputeType: BUILD_GENERAL1_SMALL
+        ComputeType: BUILD_GENERAL1_MEDIUM
         Type: LINUX_CONTAINER
         Image: "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
         PrivilegedMode: True
@@ -248,6 +248,8 @@ Resources:
             Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${EcrDockerRepository}
           - Name: GitBranch
             Value: !Ref 'GitBranch'
+          - Name: Container
+            Value: !Ref EcrRepository
       Name: !Ref AWS::StackName
       ServiceRole: !Ref CodeBuildServiceRole
 

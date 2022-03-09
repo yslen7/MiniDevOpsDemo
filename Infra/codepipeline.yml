@@ -219,7 +219,7 @@ Resources:
             build:
               commands:
                 - echo Build started on `date`
-                - docker build -t "${REPOSITORY_URI}:${GitBranch}" .
+                - docker build -t "${REPOSITORY_URI}:${GitBranch}" ./App
                 - docker tag "${REPOSITORY_URI}:${GitBranch}" "${REPOSITORY_URI}:${TAG}"
             post_build:
               commands:

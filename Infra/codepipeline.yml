@@ -33,6 +33,10 @@ Parameters:
   GitHubUser:
     Type: String
     Default: yslen7
+  
+  Tag:
+    Type: String
+    Default: demo-yslen
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -229,7 +233,7 @@ Resources:
                 - docker push "${REPOSITORY_URI}:${TAG}"
                 - printf '{"Tag":"%s","RepositoryUri":"%s"}' $TAG $REPOSITORY_URI $PROJECT_NAME $ARTIFACT_BUCKET > build.json
                 - echo Writing image definitions file...
-                - printf '[{"name":"%s-socket","imageUri":"%s"}]' $GitBranch $REPOSITORY_URI:$TAG > imagedefinitions.json
+                - printf '[{"name":"%s","imageUri":"%s"}]' $GitBranch $REPOSITORY_URI:$TAG > imagedefinitions.json
           artifacts:
               files: imagedefinitions.json
       Environment:
@@ -296,7 +300,7 @@ Resources:
                 Provider: ECS
               Configuration:
                 ClusterName: !Ref ClusterName
-                ServiceName: !Sub ${GitBranch}-socket
+                ServiceName: !Sub ${Tag}-service
                 FileName: imagedefinitions.json
               InputArtifacts:
                 - Name: BuildOutput

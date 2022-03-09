@@ -19,7 +19,7 @@ Parameters:
 
   GitBranch:
     Type: String
-    Default: main
+    Default: master
 
   GitHubToken:
     Type: String

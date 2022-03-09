@@ -5,7 +5,7 @@ Bucket="s3-demo-yslen"
 Tag="demo-yslen"
 ClusterName="demo-yslen-ecs"
 DNSName="demo.yslen.com"
-GitBranch="main"
+GitBranch="master"
 SecurityGroupName="demo-yslen-sg"
 LoadBalancerName="demo-yslen-lb"
 
